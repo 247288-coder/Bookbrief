@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookBrief – Smart Book Summaries & Action Plans</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- =========== NAVBAR =========== -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <span class="brand-icon">📚</span>
+      <span class="brand-text">Book<span class="brand-accent">Brief</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#popular">Popular Books</a></li>
+        <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-outline-accent" href="#search-section">Try Free</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-accent" href="#pricing">Get Pro</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- =========== HERO =========== -->
+<section class="hero-section" id="home">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="row align-items-center min-vh-100 py-5">
+      <div class="col-lg-6 hero-text">
+        <div class="hero-badge mb-3">
+          <i class="bi bi-stars"></i> AI-Powered Learning
+        </div>
+        <h1 class="hero-title">
+          Read Less.<br/>
+          <span class="highlight">Learn More.</span><br/>
+          Act Better.
+        </h1>
+        <p class="hero-subtitle">
+          Enter any book title and get an instant smart summary + a personalized
+          <strong>7-Day Action Plan</strong> to put your learnings into real life.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="hero-search-box" id="search-section">
+          <div class="input-group search-group">
+            <span class="input-group-text search-icon"><i class="bi bi-search"></i></span>
+            <input type="text" id="heroSearchInput" class="form-control search-input"
+              placeholder="Enter a book title e.g. Atomic Habits…"/>
+            <button class="btn btn-accent search-btn" onclick="generateSummary()">
+              Get Summary <i class="bi bi-arrow-right-short"></i>
+            </button>
+          </div>
+          <div class="search-tags mt-2">
+            <span class="tag-label">Popular:</span>
+            <span class="search-tag" onclick="fillSearch('Atomic Habits')">Atomic Habits</span>
+            <span class="search-tag" onclick="fillSearch('Think and Grow Rich')">Think & Grow Rich</span>
+            <span class="search-tag" onclick="fillSearch('The 7 Habits')">7 Habits</span>
+          </div>
+        </div>
+
+        <div class="hero-stats mt-4">
+          <div class="stat-item">
+            <span class="stat-num">50K+</span>
+            <span class="stat-label">Books Summarized</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">200K+</span>
+            <span class="stat-label">Action Plans Created</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">4.9⭐</span>
+            <span class="stat-label">User Rating</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 hero-visual mt-5 mt-lg-0">
+        <div class="book-mockup">
+          <div class="mockup-card main-card">
+            <div class="card-header-mock">
+              <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+            </div>
+            <div class="mock-book-cover">
+              <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&q=80"
+                alt="Book" class="mock-book-img"/>
+              <div class="mock-book-info">
+                <h5>Atomic Habits</h5>
+                <p>James Clear</p>
+              </div>
+            </div>
+            <div class="mock-summary">
+              <div class="mock-line long"></div>
+              <div class="mock-line medium"></div>
+              <div class="mock-line short"></div>
+            </div>
+            <div class="mock-action-days">
+              <span class="day-chip active">Day 1</span>
+              <span class="day-chip">Day 2</span>
+              <span class="day-chip">Day 3</span>
+              <span class="day-chip">Day 4</span>
+              <span class="day-chip">Day 5</span>
+              <span class="day-chip">Day 6</span>
+              <span class="day-chip">Day 7</span>
+            </div>
+          </div>
+          <div class="mockup-card side-card-1">
+            <i class="bi bi-check-circle-fill text-success"></i>
+            <span>Day 1 Complete!</span>
+          </div>
+          <div class="mockup-card side-card-2">
+            <i class="bi bi-lightning-charge-fill text-warning"></i>
+            <span>3-day streak 🔥</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== RESULT SECTION =========== -->
+<section class="result-section py-5 d-none" id="resultSection">
+  <div class="container">
+    <div class="result-card">
+      <div class="result-header">
+        <h3 id="resultBookTitle">Book Summary</h3>
+        <button class="btn btn-sm btn-outline-secondary" onclick="closeResult()">
+          <i class="bi bi-x-lg"></i> Close
+        </button>
+      </div>
+      <div class="row g-4 mt-2">
+        <div class="col-md-6">
+          <div class="result-box summary-box">
+            <h5><i class="bi bi-journal-text me-2"></i>Smart Summary</h5>
+            <p id="resultSummary">Loading...</p>
+            <div class="key-takeaways mt-3">
+              <h6>🔑 Key Takeaways</h6>
+              <ul id="resultTakeaways"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="result-box action-box">
+            <h5><i class="bi bi-calendar-check me-2"></i>7-Day Action Plan</h5>
+            <div id="actionPlan" class="action-plan-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FEATURES =========== -->
+<section class="features-section py-5" id="features">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Why BookBrief?</span>
+      <h2 class="section-title">Everything You Need to <span class="highlight">Learn Faster</span></h2>
+      <p class="section-sub">More than just summaries — we turn books into real life results.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#f97316,#fb923c)">
+            <i class="bi bi-lightning-charge-fill"></i>
+          </div>
+          <h5>Instant Summaries</h5>
+          <p>Get a concise, AI-powered summary of any book in seconds. No more hours of reading to grasp key ideas.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#8b5cf6,#a78bfa)">
+            <i class="bi bi-calendar4-week"></i>
+          </div>
+          <h5>7-Day Action Plans</h5>
+          <p>Personalized daily tasks that help you implement the book's lessons into your actual life — step by step.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#06b6d4,#22d3ee)">
+            <i class="bi bi-bookmarks-fill"></i>
+          </div>
+          <h5>Reading Library</h5>
+          <p>Save all your summaries and action plans in a personal library. Track your reading progress beautifully.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#ec4899,#f472b6)">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h5>Progress Tracker</h5>
+          <p>Check off daily actions, earn streaks, and visualize your self-improvement journey with beautiful charts.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#10b981,#34d399)">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h5>Community Challenges</h5>
+          <p>Join reading clubs, compete with friends, and share insights from your favorite self-improvement books.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg,#f59e0b,#fbbf24)">
+            <i class="bi bi-bell-fill"></i>
+          </div>
+          <h5>Daily Reminders</h5>
+          <p>Smart notifications remind you to complete your daily action and keep your momentum going strong.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== HOW IT WORKS =========== -->
+<section class="how-section py-5" id="how-it-works">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Simple Process</span>
+      <h2 class="section-title">How It <span class="highlight">Works</span></h2>
+    </div>
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="steps-list">
+          <div class="step-item active" onclick="setStep(1)">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h5>Enter a Book Title</h5>
+              <p>Type any book name in the search bar — fiction, non-fiction, self-help, business, or science.</p>
+            </div>
+          </div>
+          <div class="step-item" onclick="setStep(2)">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h5>Get Your Smart Summary</h5>
+              <p>Our AI reads thousands of reviews and analyses to deliver you the sharpest key lessons instantly.</p>
+            </div>
+          </div>
+          <div class="step-item" onclick="setStep(3)">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h5>Receive Your Action Plan</h5>
+              <p>A custom 7-day plan is generated with daily tasks designed to put the book's wisdom into real practice.</p>
+            </div>
+          </div>
+          <div class="step-item" onclick="setStep(4)">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h5>Track & Level Up</h5>
+              <p>Complete daily tasks, earn badges, maintain streaks, and measure how the book changes your life.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="step-visual" id="stepVisual">
+          <div class="step-visual-content" id="stepContent1">
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500&q=80"
+              alt="Search Books" class="img-fluid rounded-4 shadow-lg step-img"/>
+            <div class="step-caption">🔍 Search from 50,000+ books</div>
+          </div>
+          <div class="step-visual-content d-none" id="stepContent2">
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500&q=80"
+              alt="Summary" class="img-fluid rounded-4 shadow-lg step-img"/>
+            <div class="step-caption">📝 AI-generated smart summary</div>
+          </div>
+          <div class="step-visual-content d-none" id="stepContent3">
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&q=80"
+              alt="Action Plan" class="img-fluid rounded-4 shadow-lg step-img"/>
+            <div class="step-caption">🗓️ Your personalized 7-day plan</div>
+          </div>
+          <div class="step-visual-content d-none" id="stepContent4">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80"
+              alt="Track Progress" class="img-fluid rounded-4 shadow-lg step-img"/>
+            <div class="step-caption">📈 Watch yourself grow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== POPULAR BOOKS =========== -->
+<section class="popular-section py-5" id="popular">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Trending Now</span>
+      <h2 class="section-title">Most <span class="highlight">Popular</span> Summaries</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3">
+        <div class="book-card" onclick="fillSearch('Atomic Habits')">
+          <div class="book-cover" style="background: linear-gradient(135deg,#f97316,#ef4444)">
+            <span class="book-emoji">⚡</span>
+          </div>
+          <div class="book-meta">
+            <span class="book-category">Self-Help</span>
+            <h6>Atomic Habits</h6>
+            <p>James Clear</p>
+            <div class="book-rating">⭐⭐⭐⭐⭐ <span>4.9</span></div>
+            <button class="btn btn-sm book-btn">Get Summary</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="book-card" onclick="fillSearch('Think and Grow Rich')">
+          <div class="book-cover" style="background: linear-gradient(135deg,#8b5cf6,#6366f1)">
+            <span class="book-emoji">💰</span>
+          </div>
+          <div class="book-meta">
+            <span class="book-category">Finance</span>
+            <h6>Think and Grow Rich</h6>
+            <p>Napoleon Hill</p>
+            <div class="book-rating">⭐⭐⭐⭐⭐ <span>4.8</span></div>
+            <button class="btn btn-sm book-btn">Get Summary</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="book-card" onclick="fillSearch('The Psychology of Money')">
+          <div class="book-cover" style="background: linear-gradient(135deg,#10b981,#06b6d4)">
+            <span class="book-emoji">🧠</span>
+          </div>
+          <div class="book-meta">
+            <span class="book-category">Psychology</span>
+            <h6>Psychology of Money</h6>
+            <p>Morgan Housel</p>
+            <div class="book-rating">⭐⭐⭐⭐⭐ <span>4.9</span></div>
+            <button class="btn btn-sm book-btn">Get Summary</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="book-card" onclick="fillSearch('Deep Work')">
+          <div class="book-cover" style="background: linear-gradient(135deg,#f59e0b,#f97316)">
+            <span class="book-emoji">🎯</span>
+          </div>
+          <div class="book-meta">
+            <span class="book-category">Productivity</span>
+            <h6>Deep Work</h6>
+            <p>Cal Newport</p>
+            <div class="book-rating">⭐⭐⭐⭐⭐ <span>4.8</span></div>
+            <button class="btn btn-sm book-btn">Get Summary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-accent btn-lg" onclick="loadMoreBooks()">
+        <i class="bi bi-grid me-2"></i>Browse All 50,000+ Books
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CATEGORIES =========== -->
+<section class="categories-section py-5" id="categories">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Explore Topics</span>
+      <h2 class="section-title">Browse by <span class="highlight">Category</span></h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#f97316"><span>💡</span> Self-Help</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#8b5cf6"><span>💰</span> Finance</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#06b6d4"><span>🧠</span> Psychology</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#10b981"><span>🏋️</span> Health</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#ec4899"><span>🚀</span> Business</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#f59e0b"><span>🌿</span> Mindfulness</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#6366f1"><span>🔬</span> Science</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#ef4444"><span>📖</span> Fiction</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#14b8a6"><span>🌍</span> History</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#f97316"><span>💭</span> Philosophy</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#a855f7"><span>👶</span> Parenting</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="category-pill" style="--cat-color:#0ea5e9"><span>💻</span> Technology</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== TESTIMONIALS =========== -->
+<section class="testimonials-section py-5" id="testimonials">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Real Stories</span>
+      <h2 class="section-title">What Readers <span class="highlight">Say</span></h2>
+    </div>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"BookBrief changed how I consume knowledge. The 7-day plan for Atomic Habits helped me build a morning routine I've kept for 3 months!"</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=1" alt="User"/>
+                  <div><strong>Sara K.</strong><br/><small>Product Designer</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"I've read 20+ book summaries in just one month. The action plans are the real gem — finally a way to actually use what you read!"</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=11" alt="User"/>
+                  <div><strong>Ahmed R.</strong><br/><small>Entrepreneur</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"As a student, this is a game changer. I can understand the key ideas of books my professors recommend without spending days reading."</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=5" alt="User"/>
+                  <div><strong>Maria L.</strong><br/><small>University Student</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"The summaries are sharp, not watered down. I feel like I genuinely understand the depth of each book. Best app for busy professionals!"</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=8" alt="User"/>
+                  <div><strong>David T.</strong><br/><small>Software Engineer</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"I love that it gives me small daily tasks. It makes the whole 'apply what you learn' thing feel easy and achievable!"</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=16" alt="User"/>
+                  <div><strong>Priya M.</strong><br/><small>Teacher</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="testi-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"Started with one free summary and never looked back. Upgraded to Pro same day. Worth every penny for any lifelong learner."</p>
+                <div class="testi-author">
+                  <img src="https://i.pravatar.cc/50?img=20" alt="User"/>
+                  <div><strong>James O.</strong><br/><small>Coach & Author</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PRICING =========== -->
+<section class="pricing-section py-5" id="pricing">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Simple Pricing</span>
+      <h2 class="section-title">Choose Your <span class="highlight">Plan</span></h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="price-card">
+          <div class="price-badge">Free</div>
+          <div class="price-amount">$0<span>/mo</span></div>
+          <ul class="price-features">
+            <li><i class="bi bi-check-circle-fill text-success"></i> 3 Summaries/month</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Basic Action Plans</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> 5 Categories</li>
+            <li><i class="bi bi-x-circle-fill text-danger"></i> No Progress Tracking</li>
+            <li><i class="bi bi-x-circle-fill text-danger"></i> No Community Access</li>
+          </ul>
+          <button class="btn btn-outline-accent w-100">Get Started Free</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="price-card price-popular">
+          <div class="popular-ribbon">Most Popular</div>
+          <div class="price-badge">Pro</div>
+          <div class="price-amount">$9<span>/mo</span></div>
+          <ul class="price-features">
+            <li><i class="bi bi-check-circle-fill text-success"></i> Unlimited Summaries</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Full 7-Day Action Plans</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> All Categories</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Progress Tracking</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Community Access</li>
+          </ul>
+          <button class="btn btn-accent w-100">Start Pro – $9/mo</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="price-card">
+          <div class="price-badge">Team</div>
+          <div class="price-amount">$29<span>/mo</span></div>
+          <ul class="price-features">
+            <li><i class="bi bi-check-circle-fill text-success"></i> Everything in Pro</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Up to 10 Members</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Team Book Clubs</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Admin Dashboard</li>
+            <li><i class="bi bi-check-circle-fill text-success"></i> Priority Support</li>
+          </ul>
+          <button class="btn btn-outline-accent w-100">Start Team Plan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FAQ =========== -->
+<section class="faq-section py-5" id="faq">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <span class="section-badge">Got Questions?</span>
+      <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How accurate are the book summaries?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Our summaries are generated using AI analysis and curated human reviews from trusted sources. We aim to capture the essence, key concepts, and main arguments of each book accurately.</div>
+            </div>
+          </div>
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                Can I request a book that isn't in your database?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes! Pro users can request any book and we'll process it within 24–48 hours. Free users can request up to 1 book per month.</div>
+            </div>
+          </div>
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Are the 7-Day Action Plans personalized?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">The action plans are tailored to the book's core lessons. Pro users can answer a short quiz to get plans adjusted to their goals and lifestyle.</div>
+            </div>
+          </div>
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                Can I cancel my subscription anytime?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Absolutely. You can cancel anytime from your account settings. No questions asked, no hidden fees.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CTA BANNER =========== -->
+<section class="cta-section py-5">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-shapes">
+        <div class="cta-shape s1"></div>
+        <div class="cta-shape s2"></div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2>Ready to Turn Books Into <span class="text-warning">Real Results?</span></h2>
+          <p>Join 200,000+ readers who are learning smarter, not harder. Start free today.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+          <a href="#search-section" class="btn btn-light btn-lg cta-btn">
+            Start Reading Smarter <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== NEWSLETTER =========== -->
+<section class="newsletter-section py-5">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-6">
+        <h3>Get a Free Book Summary <span class="highlight">Every Week</span></h3>
+        <p class="text-muted mb-4">Join 50,000 subscribers getting one curated summary every Sunday morning.</p>
+        <div class="input-group newsletter-group">
+          <input type="email" class="form-control" placeholder="Enter your email…" id="newsletterEmail"/>
+          <button class="btn btn-accent" onclick="subscribeNewsletter()">Subscribe Free</button>
+        </div>
+        <small class="text-muted mt-2 d-block">No spam. Unsubscribe anytime.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer class="main-footer pt-5 pb-3">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand">
+          <span class="brand-icon">📚</span>
+          <span class="brand-text">Book<span class="brand-accent">Brief</span></span>
+        </div>
+        <p class="footer-desc mt-3">Making knowledge accessible through smart summaries and actionable plans. Learn faster. Grow daily.</p>
+        <div class="footer-socials mt-3">
+          <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <h6 class="footer-heading">Product</h6>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#">Mobile App</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <h6 class="footer-heading">Company</h6>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <h6 class="footer-heading">Resources</h6>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Author Program</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <h6 class="footer-heading">Legal</h6>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider mt-4"/>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <p class="footer-copy mb-0">© 2025 BookBrief. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-md-end mt-2 mt-md-0">
+        <span class="footer-copy">Made with ❤️ for lifelong learners</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert">
+    <div class="toast-header">
+      <strong class="me-auto" id="toastTitle">BookBrief</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body" id="toastBody">Message</div>
+  </div>
+</div>
+
+<!-- Scroll To Top -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">
+  <i class="bi bi-arrow-up-short"></i>
+</button>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
